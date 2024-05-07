@@ -25,6 +25,7 @@ header {
 
 #menu li {
     display: inline-block;
+    margin-right:20px;
 }
 
 #menu a {
@@ -114,5 +115,5 @@ th {
 }
 
 .excluir-btn:hover {
-    background-color: #c82333;
+    background-color: #c82333;
 }

@@ -17,13 +17,11 @@ function atualizarCampos() {
         preco.textContent = "R$ 150,00";
         prazo.textContent = "10 dias úteis";
     }
+
     var prazoDias = parseInt(prazo.textContent.match(/\d+/)[0]);
     var dataAtual = new Date();
     var dataPrevistaCalculada = new Date(dataAtual.getTime() + prazoDias * 24 * 60 * 60 * 1000);
-    var dd = String(dataPrevistaCalculada.getDate()).padStart(2, '0');
-    var mm = String(dataPrevistaCalculada.getMonth() + 1).padStart(2, '0');
-    var yyyy = dataPrevistaCalculada.getFullYear();
-    dataPrevista.textContent = dd + '/' + mm + '/' + yyyy;
+    dataPrevista.textContent = dataPrevistaCalculada.toLocaleDateString(); // Formatação da data prevista
     status.textContent = "Em Elaboração";
 }
 

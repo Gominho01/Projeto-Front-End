@@ -1,17 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
     const signupForm = document.getElementById('signupForm');
     const clearBtn = document.getElementById('clearBtn');
-    const cpfInput = document.getElementById('cnpj');
+    const cpfInput = document.getElementById('cpf');
 
-    cpf.addEventListener('input', function(event) {
+    cpfInput.addEventListener('input', function(event) {
+        // Remove todos os caracteres não numéricos
         const cpf = event.target.value.replace(/\D/g, ''); 
-        if (cpf.length > 0) {
-            event.target.value = cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/, '$1.$2.$3-$4');
-            event.target.value = '';
-        }
+        
+        // Formata o CPF com a máscara
+        const formattedCPF = cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+        
+        // Atualiza o valor do campo com o CPF formatado
+        event.target.value = formattedCPF;
     });
 
     signupForm.addEventListener('submit', function(event) {
+        console.log('Formulário enviado');
         event.preventDefault();
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
@@ -20,6 +24,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const cpf = cpfInput.value;
         const telefone = document.getElementById('Telefone').value;
         const dataNascimento = document.getElementById('DataNascimento').value;
+        
+        console.log('Dados do formulário:');
+        console.log('Nome:', name);
+        console.log('Email:', email);
+        console.log('Senha:', password);
+        console.log('Confirmação de Senha:', confirmPassword);
+        console.log('CPF:', cpf);
+        console.log('Telefone:', telefone);
+        console.log('Data de Nascimento:', dataNascimento);
         
         if (name.trim() === '') {
             alert('Por favor, insira seu nome.');
@@ -57,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if (dataNascimento.trim() === '' || !validateDataNascimento(dataNascimento)) {
-            alert('Por favor, insira uma data de nascimento válida.');
+            alert('Você deve ter pelo menos 18 anos para se cadastrar.');
             return;
         }
         
@@ -87,12 +100,86 @@ document.addEventListener('DOMContentLoaded', function() {
         return re.test(telefone);
     }
     
+    function validateCPF(cpf) {
+        // Remove caracteres não numéricos
+        cpf = cpf.replace(/\D/g, '');
+
+        // Verifica se o CPF tem 11 dígitos numéricos
+        if (cpf.length !== 11) {
+            return false;
+        }
+
+        // Verifica se todos os dígitos são iguais (ex: 000.000.000-00)
+        if (/^(\d)\1{10}$/.test(cpf)) {
+            return false;
+        }
+
+        // Calcula os dígitos verificadores
+        let sum = 0;
+        let remainder;
+
+        for (let i = 1; i <= 9; i++) {
+            sum += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+        }
+
+        remainder = (sum * 10) % 11;
+
+        if (remainder === 10 || remainder === 11) {
+            remainder = 0;
+        }
+
+        if (remainder !== parseInt(cpf.substring(9, 10))) {
+            return false;
+        }
+
+        sum = 0;
+        for (let i = 1; i <= 10; i++) {
+            sum += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+        }
+
+        remainder = (sum * 10) % 11;
+
+        if (remainder === 10 || remainder === 11) {
+            remainder = 0;
+        }
+
+        if (remainder !== parseInt(cpf.substring(10, 11))) {
+            return false;
+        }
+
+        return true;
+    }
+
+    function validateDataNascimento(dataNascimento) {
+    // Verifica se a data de nascimento foi fornecida
+    if (!dataNascimento) {
+        return false;
+    }
+
+    // Calcula a data atual
+    const hoje = new Date();
+
+    // Converte a data de nascimento fornecida para um objeto Date
+    const dataNascimentoDate = new Date(dataNascimento);
+
+    // Calcula a diferença de anos entre a data atual e a data de nascimento
+    const idade = hoje.getFullYear() - dataNascimentoDate.getFullYear();
+
+    // Verifica se a diferença de anos é menor que 18
+    if (idade < 18) {
+        return false;
+    }
+
+    // Se passar por todas as verificações, a data de nascimento é válida
+    return true;
+}
+
     function clearForm() {
         document.getElementById('name').value = '';
         document.getElementById('email').value = '';
         document.getElementById('password').value = '';
         document.getElementById('confirmPassword').value = '';
-        document.getElementById('cnpj').value = '';
+        document.getElementById('cpf').value = '';
         document.getElementById('DataNascimento').value = '';
         document.getElementById('Telefone').value = '';
         document.getElementById('name').focus();

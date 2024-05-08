@@ -100,9 +100,8 @@ h1 {
     background-color: #dc3545; 
 }
 
-/* Estilo do ponto dentro do círculo do radio button quando marcado */
 .input-group input[type="radio"]:checked + label::before {
-    background-color: #007bff; /* Cor do ponto quando marcado */
+    background-color: #007bff; 
 }
 
 .input-group select {
@@ -110,7 +109,7 @@ h1 {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    appearance: none; /* Remove a aparência padrão do combo box */
+    appearance: none; 
     background-image: url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>'); /* Adiciona uma seta personalizada */
     background-repeat: no-repeat;
     background-position: right 10px top 50%;

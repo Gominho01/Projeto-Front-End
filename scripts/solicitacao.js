@@ -21,7 +21,7 @@ function atualizarCampos() {
     var prazoDias = parseInt(prazo.textContent.match(/\d+/)[0]);
     var dataAtual = new Date();
     var dataPrevistaCalculada = new Date(dataAtual.getTime() + prazoDias * 24 * 60 * 60 * 1000);
-    dataPrevista.textContent = dataPrevistaCalculada.toLocaleDateString(); // Formatação da data prevista
+    dataPrevista.textContent = dataPrevistaCalculada.toLocaleDateString();
     status.textContent = "Em Elaboração";
 }
 

@@ -92,8 +92,6 @@ button {
 button:hover {
     background-color: #0056b3;
 }
-
-/* Estilos específicos para a tabela de solicitações */
 table {
     width: 100%;
     border-collapse: collapse;

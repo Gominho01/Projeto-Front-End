@@ -4,13 +4,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const cpfInput = document.getElementById('cpf');
 
     cpfInput.addEventListener('input', function(event) {
-        // Remove todos os caracteres não numéricos
         const cpf = event.target.value.replace(/\D/g, ''); 
         
-        // Formata o CPF com a máscara
         const formattedCPF = cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
         
-        // Atualiza o valor do campo com o CPF formatado
         event.target.value = formattedCPF;
     });
 
@@ -76,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         window.location.href = 'PaginaPrincipal.html';
         alert('Cadastro realizado com sucesso.');
-        // Limpar os campos do formulário
+
         clearForm();
     });
 
@@ -101,20 +98,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function validateCPF(cpf) {
-        // Remove caracteres não numéricos
         cpf = cpf.replace(/\D/g, '');
 
-        // Verifica se o CPF tem 11 dígitos numéricos
         if (cpf.length !== 11) {
             return false;
         }
-
-        // Verifica se todos os dígitos são iguais (ex: 000.000.000-00)
         if (/^(\d)\1{10}$/.test(cpf)) {
             return false;
         }
 
-        // Calcula os dígitos verificadores
         let sum = 0;
         let remainder;
 
@@ -151,26 +143,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function validateDataNascimento(dataNascimento) {
-    // Verifica se a data de nascimento foi fornecida
     if (!dataNascimento) {
         return false;
     }
-
-    // Calcula a data atual
     const hoje = new Date();
 
-    // Converte a data de nascimento fornecida para um objeto Date
     const dataNascimentoDate = new Date(dataNascimento);
 
-    // Calcula a diferença de anos entre a data atual e a data de nascimento
     const idade = hoje.getFullYear() - dataNascimentoDate.getFullYear();
 
-    // Verifica se a diferença de anos é menor que 18
     if (idade < 18) {
         return false;
     }
 
-    // Se passar por todas as verificações, a data de nascimento é válida
     return true;
 }
 

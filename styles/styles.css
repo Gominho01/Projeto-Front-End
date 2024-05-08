@@ -106,9 +106,9 @@ section {
 
 .tabela, th, td {
     margin: auto;
-    width: 30%; /* Define a largura da tabela */
+    width: 30%;
     border-collapse: collapse;
-    padding: 12px; /* Aumenta ligeiramente o padding */
+    padding: 12px;
     text-align: left;
     border: 1px solid #222324;
     overflow-x: auto;
